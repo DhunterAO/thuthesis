@@ -7,10 +7,8 @@ dist/
 ## generated files:
 dtx-style.sty
 thuthesis.cls
-thuthesis.pdf
-main.pdf
-spine.pdf
 *.hd
+*.pdf
 
 ## test files:
 build/
