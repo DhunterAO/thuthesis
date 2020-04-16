@@ -2,9 +2,7 @@
 
 \chapter{基于属性的访问控制系统}
 
-\section{系统设计}
-
-\subsection{系统框架}
+\section{系统框架}
 
 \begin{figure}
 \centering
@@ -16,9 +14,9 @@
 通过运用区块链技术和基于属性的访问控制模型，我们提出了一个联盟链架构，类似OAuth框架用于第三方授权和认证。图\ref{fig:framework}给出了架构设计和工作流程的概述。该系统包含三类角色，“客户端”作为资源请求者，它请求资源所有者进行授权，并最终请求区块链节点访问资源。“资源所有者”在区块链节点上存储资源，在需要时授予“客户端”访问受保护资源的权限。该架构以联盟网络代替OAuth框架中的中心化认证服务器和资源服务器，该网络中的每个节点具有平等的地位，各自存储用户特定资源并且共同参与用户数据授权和身份验证数据的存储和管理。每个节点由资源服务器和授权服务器组成，其中资源服务器存储用户资源并使用基于属性的访问控制策略进行认证管理。当接收到操作请求时，资源服务器可以使用访问控制策略列表对请求中的各项属性进行身份验证。授权服务器与其他节点的授权服务器共同管理区块链，将用户发起的授权数据存储在区块链中，并且它可以根据区块链对资源服务器提供用于身份验证的各账户的主体属性。
 
 \begin{description}
-  \item[\textbf{资源所有者}] 资源所有者存储自己的资源在资源服务器，并在需要时授予“客户端”访问受保护资源的权限。
-  \item[\textbf{客户端}] The client is the resource requester. It asks the resource owner for authorization and eventually requests the resource server to access the resources needed. Anybody can create an account on-the-fly to play a client role without registration in advance.
-  \item[\textbf{Blockchain Node}] The consortium blockchain network is comprised of a group of connected nodes. Every node consists of an authorization server and a resource server. The authorization server participates in the distributed consensus process with others to validate the privileges granted by the resource owner, and controls access to the resource server.
+  \item[\textbf{资源所有者}] 资源所有者存储自己的资源在资源服务器，并在需要时授予客户端访问受保护资源的权限。
+  \item[\textbf{客户端}] 客户端指资源请求者，通过向资源所有者发送请求获取授权，并访问资源服务器获取资源。不同于OAuth框架中客户端需要提前注册，任何用户都可以独自创建账户作为客户端。
+  \item[\textbf{区块链节点}] 联盟链网络由若干互联的区块链节点组成。每个节点包含授权服务器和资源服务器。其中资源服务器保管资源所有者存储的部分资源，并采用基于属性的访问控制模型验证操作请求。所有节点的授权服务器共同运行共识协议，管理记录资源所有者对客户端的授权，并维护账户的属性状态。
 \end{description}
 
 该系统在以下几个方面提高了OAuth等中心化访问控制架构的安全性：
@@ -29,7 +27,7 @@
   \item 系统中使用的数字签名可以防止跨站请求伪造（Cross-Site Request Forgery，CSRF）攻击。OAuth框架在多个平台广泛实现，并使用重定向URL连接不同的平台，这可能会带来CSRF攻击。例如，它通常用于中心化平台和第三方平台之间的帐户绑定。攻击者可以先访问授权服务器，获得绑定第三方平台和中心化平台账户的访问令牌，然后诱使用户向第三方平台发送绑定请求，并提前提供攻击者获得的令牌。因此，攻击者可以通过中心化平台的账号访问第三方平台上的用户资源。在我们的系统中，用户发送的所有授权和操作都需要进行数字签名，这样才能保证授权的来源。
 \end{enumerate}
 
-\subsection{协议流程}
+\section{协议流程}
 \label{sec:protocols}
 本节介绍此框架中的协议。整个协议主要分为5个步骤，分别对应于图\ref{fig:framework}中的工作流程。每一步的详细信息在\ref{sec:protocols}中描述，具体步骤如下:
 
