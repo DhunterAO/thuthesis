@@ -3,53 +3,38 @@
 % 中英文摘要和关键字
 
 \begin{abstract}
-  论文的摘要是对论文研究内容和成果的高度概括。摘要应对论文所研究的问题及其研究目
-  的进行描述，对研究方法和过程进行简单介绍，对研究成果和所得结论进行概括。摘要应
-  具有独立性和自明性，其内容应包含与论文全文同等量的主要信息。使读者即使不阅读全
-  文，通过摘要就能了解论文的总体内容和主要成果。
+  访问控制领域是计算机系统中重要的研究领域，直接关系数据的安全和隐私。访问控制模型的发展已经较为成熟，DAC、MAC、RBAC、ABAC等访问控制模型被普遍应用。随着互联网应用的发展，各平台需要授权服务框架向第三方应用提供授权服务。目前，第三方授权服务框架OAuth 2.0被广泛应用，该框架未限制使用的访问控制模型类型，可以与各类访问控制系统方便地结合。
 
-  论文摘要的书写应力求精确、简明。切忌写成对论文书写内容进行提要的形式，尤其要避
-  免“第 1 章……；第 2 章……；……”这种或类似的陈述方式。
+  但OAuth 2.0及类似的授权服务框架都存在严重中心化的授权服务器，这成为系统的性能瓶颈和安全隐患。针对这一问题，本文提出基于区块链技术的第三方授权服务框架B-OAuth，采用区块链网络替代OAuth框架中的授权服务器，提升系统安全性。并完成了原型系统和性能测试，验证了该设计的可行性。
 
-  本文介绍清华大学论文模板 \thuthesis{} 的使用方法。本模板符合学校的本科、硕士、
-  博士论文格式要求。
+  为了保护用户数据的隐私性，本文分析了现有区块链上隐私保护的技术和实现，将区块链上隐私保护技术归纳总结为地址混淆、信息隐藏、通道隔离三大机制，并详细介绍了各类隐私保护机制的原理、特征以及不同的实现方式。在此基础上，引入了隐私保护技术zk-snark，解决隐私风险问题。
 
-  本文的创新点主要有：
-  \begin{itemize}
-    \item 用例子来解释模板的使用方法；
-    \item 用废话来填充无关紧要的部分；
-    \item 一边学习摸索一边编写新代码。
-  \end{itemize}
+  本文主要贡献如下：
 
-  关键词是为了文献标引工作、用以表示全文主要内容信息的单词或术语。关键词不超过 5
-  个，每个关键词中间用分号分隔。（模板作者注：关键词分隔符不用考虑，模板会自动处
-  理。英文关键词同理。）
+  \begin{enumerate}
+    \item 针对OAuth框架中存在的中心化授权服务器，本文提出了基于区块链网络的替代方案B-OAuth，增强授权服务系统的安全性和鲁棒性。针对区块链账本的存储模式，并根据访问控制系统的特点进行改进，定义符合授权认证特点的链上数据结构与状态数据结构。并完成了原型系统和性能测试，验证了该设计的可行性。
+    \item 对现有区块链上的隐私保护技术进行分析，本文分析了现有区块链上隐私保护的技术和实现，将区块链上隐私保护技术归纳总结为地址混淆、信息隐藏、通道隔离三大机制，并详细介绍了各类隐私保护机制的原理、特征以及不同的实现方式。针对B-OAuth系统中存在的隐私风险问题，本文引入zk-snark技术，提出了对用户授权数据进行隐私保护的方法。
+  \end{enumerate}
 
   % 关键词用“英文逗号”分隔
   \thusetup{
-    keywords = {TeX, LaTeX, CJK, 模板, 论文},
+    keywords = {区块链, 访问控制, OAuth框架, 基于属性的访问控制模型, 隐私保护},
   }
 \end{abstract}
 
 \begin{abstract*}
-  An abstract of a dissertation is a summary and extraction of research work
-  and contributions. Included in an abstract should be description of research
-  topic and research objective, brief introduction to methodology and research
-  process, and summarization of conclusion and contributions of the
-  research. An abstract should be characterized by independence and clarity and
-  carry identical information with the dissertation. It should be such that the
-  general idea and major contributions of the dissertation are conveyed without
-  reading the dissertation.
+  Access control is an important research field in computer science, which is directly related to the security and privacy of data. The development of access control models has been relatively mature, DAC, MAC, RBAC, ABAC and other access control models are widely used. With the development of Internet applications, platforms need authorization service frameworks to provide authorization services to third-party applications. At present, OAuth framework is widely used, the OAuth framework does not limit the use of access control model types, can be easily combined with various access control systems. 
 
-  An abstract should be concise and to the point. It is a misunderstanding to
-  make an abstract an outline of the dissertation and words ``the first
-  chapter'', ``the second chapter'' and the like should be avoided in the
-  abstract.
+  However, OAuth and similar authorization service frameworks all have a serious centralized authorization server, which becomes a performance bottleneck and security hazard of the system. To solve this problem, this paper proposes a third-party authorization service framework b-oauth based on block chain technology, and adopts block chain network to replace the authorization server in OAuth framework to improve system security. The prototype system and performance test are completed to verify the feasibility of the design. But the distributed storage of blockchain networks raises the risk of data leakage. 
 
-  Key words are terms used in a dissertation for indexing, reflecting core
-  information of the dissertation. An abstract may contain a maximum of 5 key
-  words, with semi-colons used in between to separate one another.
+  In order to protect the privacy of user data, this paper analyzes the existing technology and implementation of privacy protection on the block chain, and summarizes the privacy protection technology on the block chain into three mechanisms: address confusion, information hiding and channel isolation, and introduces in detail the principles, characteristics and different implementation methods of various privacy protection mechanisms. Zk-snark, a privacy protection technology suitable for b-oauth framework, is introduced to solve the privacy risk. The main contributions of this paper are as follows:
+
+  \begin{enumerate}
+    \item Aiming at the centralized authorization server in OAuth framework, this paper proposes b-oauth, an alternative scheme based on block chain network, to enhance the security and robustness of the authorization service system. According to the storage mode of blockchain ledger and the characteristics of access control system, the on-chain data structure and state data structure conforming to the characteristics of authorization and authentication are defined. The prototype system and performance test are completed to verify the feasibility of the design.
+    \item Privacy protection technology to the existing block chain analysis, this paper analyzes the existing privacy protection technology and implementation of chain block, the block and privacy protection technology in the chain of generalizations to address confusion, information hiding, channel segregation three mechanisms, and introduces in detail the principle of all kinds of privacy protection mechanism, characteristics, and different ways of implementation. In view of the privacy risks in the b-oauth system, this paper introduces the zk-snark technology and proposes a privacy protection method for the authorized data of users.
+  \end{enumerate}
+
   \thusetup{
-    keywords* = {TeX, LaTeX, CJK, template, thesis},
+    keywords* = {Blockchain, Access Control, OAuth Framework, Attribute-based Access Control Model, Privacy Protection},
   }
 \end{abstract*}
