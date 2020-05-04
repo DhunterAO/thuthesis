@@ -7,7 +7,7 @@
 
 \begin{figure}
 \centering
-\includegraphics[width=12cm, keepaspectratio]{figures/implementation.png}
+\includegraphics[width=15cm, keepaspectratio]{figures/implementation.pdf}
 \caption{系统实现框架图}
 \label{fig:implementation}
 \end{figure}
@@ -44,7 +44,7 @@
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=8cm, keepaspectratio]{figures/client.png}
+\includegraphics[width=12cm, keepaspectratio]{figures/client.pdf}
 \caption{客户端}
 \label{fig:client}
 \end{figure}
@@ -53,7 +53,7 @@
 
 \subsection{用户交互界面}
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[width=12cm, keepaspectratio]{figures/ui.png}
 \caption{用户交互界面}
@@ -76,14 +76,14 @@
 
 \section{授权服务器实现}
 
-\begin{figure}[htb]
+\begin{figure}[H]
 \centering
-\includegraphics[width=8cm, keepaspectratio]{figures/imple-auth.png}
+\includegraphics[width=12cm, keepaspectratio]{figures/imple-auth.pdf}
 \caption{授权服务器实现框架}
 \label{fig:imple-auth}
 \end{figure}
 
-授权服务器主要实现客户端接口模块，区块链调用模块，区块链存储模块以及共识模块四个模块功能。其中客户端接口模块负责接受客户端的授权请求和操作请求并转发给核心处理模块，以及将处理结果返回给客户端。区块链存储模块根据核心处理模块的指令，负责区块数据以及状态数据的存储和更新。共识模块与其他区块链节点相连，发送并接收共识协议中的相关消息，包括预准备信息，准备信息，承诺信息，更新视图等。采用多个定时器通过管道实现，保障在限定时间内达成共识产生新区块。核心处理模块负责处理从客户端或者其他区块链节点接收到的数据，运行第\ref{sec:b-oauth}介绍的授权验证、区块生成等算法。
+授权服务器主要实现客户端接口模块，区块链调用模块，区块链存储模块以及共识模块四个模块功能。其中客户端接口模块负责接受客户端的授权请求和操作请求并转发给核心处理模块，以及将处理结果返回给客户端。区块链存储模块根据核心处理模块的指令，负责区块数据以及状态数据的存储和更新。共识模块与其他区块链节点相连，发送并接收共识协议中的相关消息，包括预准备信息，准备信息，承诺信息，更新视图等。采用多个定时器通过管道实现，保障在限定时间内达成共识产生新区块。核心处理模块负责处理从客户端或者其他区块链节点接收到的数据，运行第\ref{chap:bacs}介绍的授权验证、区块生成等算法。
 
 \subsection{客户端接口模块}
 
@@ -99,39 +99,20 @@
 
 \subsection{共识模块}
 
-\begin{figure}[ht]
-  \centering%
-  \subcaptionbox{“预准备消息”数据结构\label{fig:pre-prepare}}
-    {\includegraphics[width=6cm]{figures/pre-prepare.png}}%
-  \hspace{2em}%
-  \subcaptionbox{“准备消息”数据结构\label{fig:prepare}}
-      {\includegraphics[width=6cm]{figures/prepare.png}}
-
-  \subcaptionbox{“承诺消息”数据结构\label{fig:commit}}
-      {\includegraphics[width=6cm]{figures/commit.png}}
-  \hspace{2em}%
-  \subcaptionbox{“视图更新消息”数据结构\label{fig:viewchange}}
-      {\includegraphics[width=6cm]{figures/viewchange.png}}
-  \caption{共识协议中各类消息的数据结构}
-  \label{fig:pbft-data}
-\end{figure}
-
-共识模块中首先设计了各类消息的数据结构，如图\ref{fig:pbft-data}所示。各节点的共识模块之间通过http协议进行通信，并按照规定的数据结构对消息进行封装。
-
 \begin{figure}
 \centering
-\includegraphics[width=12cm, keepaspectratio]{figures/timer.png}
+\includegraphics[width=15cm, keepaspectratio]{figures/timer.pdf}
 \caption{定时器工作流程}
 \label{fig:timer}
 \end{figure}
 
-该模块采用第\ref{subsec:adapted-pbft}节中介绍的共识协议，主要通过若干定时器启动函数，保障协议的正常进行。如图\ref{fig:timer}，该系统中，正常情况下由NewBlockTimer每2秒启动一次NewBlock函数，开始一轮新的共识。当每轮共识开始时，启动NullRequestTimer和BlockPassTimer，如果节点在1秒内没有接收到来自主节点的消息，则NullRequestTimer到期。如果节点在1.5秒内没有收到足够多的“承诺消息”表示共识达成，则BlockPassTimer到期。为了保障在一定时间后主节点切换，ViewChangeTimer设置为每60秒到期一次，无法中断。这三个定时器到期，节点都会发起视图切换，开始不断循环ViewChangeResendTimer尝试切换到下一个视图，直到与其他节点达成共识成功切换视图为止。
+共识模块采用第\ref{subsec:adapted-pbft}节中介绍的共识协议，主要通过若干定时器启动函数，保障协议的正常进行。如图\ref{fig:timer}，该系统中，正常情况下由NewBlockTimer每2秒启动一次NewBlock函数，开始一轮新的共识。当每轮共识开始时，启动NullRequestTimer和BlockPassTimer，如果节点在1秒内没有接收到来自主节点的消息，则NullRequestTimer到期。如果节点在1.5秒内没有收到足够多的“承诺消息”表示共识达成，则BlockPassTimer到期。为了保障在一定时间后主节点切换，ViewChangeTimer设置为每60秒到期一次，无法中断。这三个定时器到期，节点都会发起视图切换，开始不断循环ViewChangeResendTimer尝试切换到下一个视图，直到与其他节点达成共识成功切换视图为止。
 
 \section{资源服务器实现}
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=8cm, keepaspectratio]{figures/imple-resource.png}
+\includegraphics[width=12cm, keepaspectratio]{figures/imple-resource.pdf}
 \caption{资源服务器实现框架}
 \label{fig:imple-resource}
 \end{figure}
@@ -156,7 +137,7 @@
 
 \section{性能测试}
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[width=12cm, keepaspectratio]{figures/performance.png}
 \caption{性能测试}

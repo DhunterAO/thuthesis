@@ -6,7 +6,7 @@
 
 \section{区块链系统}
 
-区块链技术旨在不可信的开放网络中，维护一个安全可信、不可篡改的公共账本，并以此为基础构建电子交易、访问控制等应用系统。根据新节点的加入是否需要授权认证，区块链系统可以分为许可链和非许可链两大类。非许可链通常也称为公有链，不限制节点的加入或退出，任何节点可以访问链上数据、发布交易、以及参与链上数据的记录，甚至可以尝试发布不合法消息，攻击网络中的其他节点。许可链指区块链网络中节点 的加入网络、记录账本等操作需要经过特定的授权许可与认证。许可链系统又可以根据系统参与方的数量分为联盟链与私有链，其中联盟链由多方组织加入同一区块链网络中，共同维护区块链账本，记录并执行链上合约，多方组织可以通过一致的账本建立起联盟成员之间的信任。而私有链通常由一个参与方负责创建和维护，主要用于记录和管理内部数据，增强数据的安全性、可追溯性。
+区块链技术旨在不可信的开放网络中，维护一个安全可信、不可篡改的公共账本，并以此为基础构建电子交易、访问控制等应用系统。根据新节点的加入是否需要授权认证，区块链系统可以分为许可链和非许可链两大类。非许可链通常也称为公有链，不限制节点的加入或退出，任何节点可以访问链上数据、发布交易、以及参与链上数据的记录，甚至可以尝试发布不合法消息，攻击网络中的其他节点。许可链指区块链网络中节点的加入网络、记录账本等操作需要经过特定的授权许可与认证。许可链系统又可以根据系统参与方的数量分为联盟链与私有链，其中联盟链由多方组织加入同一区块链网络中，共同维护区块链账本，记录并执行链上合约，多方组织可以通过一致的账本建立起联盟成员之间的信任。而私有链通常由一个参与方负责创建和维护，主要用于记录和管理内部数据，增强数据的安全性、可追溯性。
 
 本文对比许可链和非许可链两类区块链系统在准入限制、参与方数量、采用的共识算法、应用场景等方面的区别，并总结如表\ref{tab:classification} 所示。 
 
@@ -46,7 +46,7 @@
 
 \begin{figure}
 \centering  
-\includegraphics [width=400pt]{figures/hashchain.png}
+\includegraphics [width=400pt]{figures/hashchain.pdf}
 \caption{区块链数据结构}
 \label{fig:hashchain}
 \end{figure}
@@ -58,10 +58,10 @@
 \begin{figure}
   \centering%
   \subcaptionbox{默克尔树数据结构\label{fig:merkle-tree}}
-    {\includegraphics[width=150pt]{figures/merkle-tree.png}}%
+    {\includegraphics[width=150pt]{figures/merkle-tree.pdf}}%
   \hspace{2em}%
   \subcaptionbox{存在性证明\label{fig:merkle-proof}}
-      {\includegraphics[width=150pt]{figures/merkle-proof.png}}
+      {\includegraphics[width=150pt]{figures/merkle-proof.pdf}}
   \caption{默克尔树数据结构及存在性证明}
   \label{fig:merkle}
 \end{figure}
@@ -76,7 +76,7 @@
 
 \begin{figure}[H]
 \centering	
-\includegraphics [width=400pt,height=100pt]{figures/sym-crypto.png}
+\includegraphics [width=400pt]{figures/sym-crypto.pdf}
 \caption{对称密码体制的基本模型}
 \label{fig:sym-crypto}
 \end{figure}
@@ -85,7 +85,7 @@
 
 \begin{figure}[H]
 \centering	
-\includegraphics [width=400pt,height=115pt]{figures/asym-crypto.png}
+\includegraphics [width=400pt]{figures/asym-crypto.pdf}
 \caption{非对称密码体制的基本模型}
 \label{fig:asym-crypto}
 \end{figure}
@@ -182,7 +182,7 @@ Paxos共识协议和Raft共识协议只能解决节点宕机和网络通信等�
  
 \begin{figure}
 \centering  
-\includegraphics [width=400pt]{figures/pbft.png}
+\includegraphics [width=400pt]{figures/pbft.pdf}
 \caption{PBFT共识协议的正常流程}
 \label{fig:pbft}
 \end{figure}
@@ -208,7 +208,7 @@ Paxos共识协议和Raft共识协议只能解决节点宕机和网络通信等�
 
 最长链原则共识的分叉问题制约了其性能。为了提升区块链系统的性能，必须减少新区块的时间间隔，或者增大区块大小，包含更多交易。这两者都会导致新区块在网络中传播的时间相较于计算出块的时间比减小，进而导致更容易出现分支并且更难达成一致，这将导致系统安全性降低。
 
-为了解决性能瓶颈，以太坊项目提出了幽灵协议，该协议将最长链共识原则改为最大子树共识原则。幽灵协议从创世块出发，在每次遇到分叉时，不断选择权重最大的子树作为下一个区块，每个子树的权重由该子树包含的所有区块难度和决定。即使正常节点之间出现算力分叉，也在同一个子树下进行计算新区块，可以共同抵抗攻击者构造的新分支，保障了系统安全性。
+为了解决性能瓶颈，以太坊项目提出了幽灵协议，该协议将最长链共识原则改为最大子树共识原则。最大子树共识原则指从创世块出发，在每次遇到分叉时，选择难度总和最大的子树的根作为下一个区块，每个子树的难度总和即该子树包含的所有区块难度和。即使正常节点之间出现算力分叉，也在同一个子树下进行计算，可以抵抗攻击者构造的新子树，保障了系统安全性。
 
-以太坊提出的最大子树共识原则利用了分叉区块的计算工作量，用于抵抗分叉攻击，提升系统安全性。但最终的链上数据只采用了一条链上的数据，除此以外的数据都被抛弃。这样可以保障整个区块链数据的一致性，避免状态矛盾。为了进一步提升系统性能，conflux协议在此基础上进一步利用了分叉块中未冲突的交易。conflux共识协议增加对分叉区块中的交易进行验证的步骤，通过对整个树状结构进行时期的划分，然后将各时期中与主链不矛盾的交易都认为合法交易，提升系统性能。
+最大子树共识原则提升了系统安全性，但最终的链上数据只采用了一条主链上的数据，分支的数据都被抛弃。这样可以保障整个区块链数据的一致性，避免状态矛盾。为了进一步提升系统性能，conflux协议在此基础上进一步利用了分支区块中未与主链状态冲突的交易。conflux共识协议增加对分叉区块中的交易进行验证的步骤，通过对整个树状结构进行时期的划分，然后将各时期中与主链不矛盾的交易都认为合法交易，提升系统性能。
 

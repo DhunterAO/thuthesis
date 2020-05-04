@@ -3,38 +3,35 @@
 % 中英文摘要和关键字
 
 \begin{abstract}
-  访问控制领域是计算机系统中重要的研究领域，直接关系数据的安全和隐私。访问控制模型的发展已经较为成熟，DAC、MAC、RBAC、ABAC等访问控制模型被普遍应用。随着互联网应用的发展，各平台需要授权服务框架向第三方应用提供授权服务。目前，第三方授权服务框架OAuth 2.0被广泛应用，该框架未限制使用的访问控制模型类型，可以与各类访问控制系统方便地结合。
+  访问控制领域是计算机系统中重要的研究领域，直接关系数据的安全和隐私。传统访问控制模型的发展已经较为成熟。随着互联网应用的发展，访问控制系统需要提供授权服务功能，允许用户向其他用户和第三方应用授权访问存储的数据。但现有的第三方授权服务框架存在中心化的授权服务器，这成为系统的安全隐患。
 
-  但OAuth 2.0及类似的授权服务框架都存在严重中心化的授权服务器，这成为系统的性能瓶颈和安全隐患。针对这一问题，本文提出基于区块链技术的第三方授权服务框架B-OAuth，采用区块链网络替代OAuth框架中的授权服务器，提升系统安全性。并完成了原型系统和性能测试，验证了该设计的可行性。
+  针对这一问题，本文提出基于区块链技术的访问控制系统BACS(Blockchain-based Access Control System)。该系统采用基于属性的访问控制ABAC(Attribute Based Access Control)模型，能提供第三方授权服务功能。BACS利用区块链网络替代授权服务框架中的中心化授权服务器，将用户授权数据存储在区块链上，提升了系统的安全性。并完成了原型系统和性能测试，验证了该设计的可行性。
 
-  为了保护用户数据的隐私性，本文分析了现有区块链上隐私保护的技术和实现，将区块链上隐私保护技术归纳总结为地址混淆、信息隐藏、通道隔离三大机制，并详细介绍了各类隐私保护机制的原理、特征以及不同的实现方式。在此基础上，引入了隐私保护技术zk-snark，解决隐私风险问题。
-
-  本文主要贡献如下：
+  进一步，为了保护BACS系统中⽤户授权数据的隐私性，本⽂分析了现有区块链上隐私保护的技术和实现。在此基础上，引⼊了隐私保护技术zk-SNARK(zero-knowledge Succinct Non-interactive ARguments of Knowledge)，增强了BACS系统中的隐私保护。本文主要贡献如下：
 
   \begin{enumerate}
-    \item 针对OAuth框架中存在的中心化授权服务器，本文提出了基于区块链网络的替代方案B-OAuth，增强授权服务系统的安全性和鲁棒性。针对区块链账本的存储模式，并根据访问控制系统的特点进行改进，定义符合授权认证特点的链上数据结构与状态数据结构。并完成了原型系统和性能测试，验证了该设计的可行性。
-    \item 对现有区块链上的隐私保护技术进行分析，本文分析了现有区块链上隐私保护的技术和实现，将区块链上隐私保护技术归纳总结为地址混淆、信息隐藏、通道隔离三大机制，并详细介绍了各类隐私保护机制的原理、特征以及不同的实现方式。针对B-OAuth系统中存在的隐私风险问题，本文引入zk-snark技术，提出了对用户授权数据进行隐私保护的方法。
+    \item 本文提出了基于区块链技术的访问控制系统BACS。该系统针对基于属性的访问控制模型的特点，设计区块链中链上数据结构与状态数据结构。BACS系统利用联盟链网络替代授权服务框架中的中心化授权服务器，将授权历史数据存储在区块链上，提升了系统的安全性。并完成了原型系统和性能测试，验证了该设计的可行性。
+    \item 本文分析了现有区块链上隐私保护的技术和实现，将区块链上隐私保护技术归纳总结为地址混淆、信息隐藏、通道隔离三类机制。并详细介绍了各类隐私保护机制的原理、特征以及不同的实现方式。在BACS系统的基础上，进一步设计了隐私保护机制，引入zk-SNARK技术保护BACS系统中授权数据的隐私性，保障用户隐私安全。
   \end{enumerate}
 
-  % 关键词用“英文逗号”分隔
   \thusetup{
-    keywords = {区块链, 访问控制, OAuth框架, 基于属性的访问控制模型, 隐私保护},
+    keywords = {区块链, 访问控制, 第三方授权, 基于属性的访问控制, 隐私保护},
   }
 \end{abstract}
 
 \begin{abstract*}
-  Access control is an important research field in computer science, which is directly related to the security and privacy of data. The development of access control models has been relatively mature, DAC, MAC, RBAC, ABAC and other access control models are widely used. With the development of Internet applications, platforms need authorization service frameworks to provide authorization services to third-party applications. At present, OAuth framework is widely used, the OAuth framework does not limit the use of access control model types, can be easily combined with various access control systems. 
+  Access control is an important research area in computer system, which is directly related to the security and privacy of data. The development of traditional access control model is mature. With the development of Internet applications, the access control system needs to provide authorization service function, allowing users to authorize other users to access the stored data. However, the centralized authorization server exists in the existing authorization service framework, which becomes the performance bottleneck and security hazard of the system.
 
-  However, OAuth and similar authorization service frameworks all have a serious centralized authorization server, which becomes a performance bottleneck and security hazard of the system. To solve this problem, this paper proposes a third-party authorization service framework b-oauth based on block chain technology, and adopts block chain network to replace the authorization server in OAuth framework to improve system security. The prototype system and performance test are completed to verify the feasibility of the design. But the distributed storage of blockchain networks raises the risk of data leakage. 
+  To solve this problem, this paper proposes BACS(blockchain-based Access Control System) based on Blockchain technology. The system adopts the ABAC(Attribute Based Access Control) model and can provide authorization service. BACS uses the blockchain network to replace the centralized authorization server in the authorization service framework, stores the authorization data of users on the blockchain, and improves the security of the system. The prototype system and performance test are completed to verify the feasibility of the design.
 
-  In order to protect the privacy of user data, this paper analyzes the existing technology and implementation of privacy protection on the block chain, and summarizes the privacy protection technology on the block chain into three mechanisms: address confusion, information hiding and channel isolation, and introduces in detail the principles, characteristics and different implementation methods of various privacy protection mechanisms. Zk-snark, a privacy protection technology suitable for b-oauth framework, is introduced to solve the privacy risk. The main contributions of this paper are as follows:
+  Further, in order to protect the authorization data privacy in BACS system, this paper analysis existing technology and implementation of blockchain privacy protection. On this basis, the lead ⼊ zk - Snark, privacy protection technology enhances the BACS system of privacy protection. The main contributions of this paper are as follows:
 
   \begin{enumerate}
-    \item Aiming at the centralized authorization server in OAuth framework, this paper proposes b-oauth, an alternative scheme based on block chain network, to enhance the security and robustness of the authorization service system. According to the storage mode of blockchain ledger and the characteristics of access control system, the on-chain data structure and state data structure conforming to the characteristics of authorization and authentication are defined. The prototype system and performance test are completed to verify the feasibility of the design.
-    \item Privacy protection technology to the existing block chain analysis, this paper analyzes the existing privacy protection technology and implementation of chain block, the block and privacy protection technology in the chain of generalizations to address confusion, information hiding, channel segregation three mechanisms, and introduces in detail the principle of all kinds of privacy protection mechanism, characteristics, and different ways of implementation. In view of the privacy risks in the b-oauth system, this paper introduces the zk-snark technology and proposes a privacy protection method for the authorized data of users.
+    \item This paper proposes an access control system BACS based on block chain technology. According to the characteristics of the access control model based on attributes, the system designs the data structure and the state data structure in the block chain. BACS system USES the alliance chain network to replace the centralized authorization server in the authorization service framework, and stores the authorization history data on the block chain, which improves the security of the system. The prototype system and performance test are completed to verify the feasibility and practicability of the design.
+    \item This paper analyzes the existing technology and implementation of privacy protection on the block chain, and summarizes the privacy protection technology on the block chain into three mechanisms: address confusion, information hiding, and channel isolation. The principles, characteristics and different implementation methods of various privacy protection mechanisms are introduced in detail. On the basis of BACS system, the privacy protection mechanism is further designed, and zk-snark (zero-knowledge succsuccic non-interactive ARguments of knowledge) technology is introduced to protect the privacy of authorized data in BACS system and guarantee the privacy security of users.
   \end{enumerate}
 
   \thusetup{
-    keywords* = {Blockchain, Access Control, OAuth Framework, Attribute-based Access Control Model, Privacy Protection},
+    keywords* = {Blockchain, Access Control, Third Party Authorization, Attribute-based Access Control Model, Privacy Protection},
   }
 \end{abstract*}

@@ -28,24 +28,24 @@
 	\item 假设2 交易的找零地址和输入地址为同一用户所持有。
 \end{enumerate}
 
-2013年，Reid等人下载了比特币系统2009年1月3日至2011年7月12日的全部账本数据，通过分析数据首先构建交易网络。交易网络中节点表示单次交易，节点间的有向边为交易间的输出-输入对，表示前一次交易的输出作为后一次交易的输入，每条边同时记录了交易金额以及交易时间。部分交易网络如图\ref{fig:sub-network}所示。
+2013年，Reid等人下载了比特币系统2009年1月3日至2011年7月12日的全部账本数据，通过分析数据首先构建交易网络。交易网络中节点表示单次交易，节点间的有向边为交易间的输出-输入对，表示前一次交易的输出作为后一次交易的输入，每条边同时记录了交易金额以及交易时间。部分交易网络如图\ref{fig:tx-network}所示。
 
 \begin{figure}
 \centering
-\includegraphics[height=7cm]{figures/sub-network.png}
+\includegraphics[width=13cm]{figures/tx-network.pdf}
 \caption{交易网络示例}
-\label{fig:sub-network}
+\label{fig:tx-network}
 \end{figure}
 
 在交易网络的基础上，提取所有多输入交易，构建账户地址间的非完全网络。如图\ref{fig:nc-user-network}所示，非完全网络中节点表示地址，节点间有向边表示地址间交易的时间和金额。Reid等人根据中本聪提到的多输入交易关联风险提出假设1，即假设多输入交易的所有输入地址为同一用户所有。基于这一假设，在非完全网络的基础上，可以聚合属于同一用户的所有地址，进而构建用户网络，用户网络中节点表示一个用户，节点间的有向边表示用户间资产流动信息。
 
-\begin{figure}[ht]
-  \centering%
+\begin{figure}[H]
+  \centering
   \subcaptionbox{非完全网络中的局部示例\label{fig:nc-network}}
-    {\includegraphics[height=7cm]{figures/nc-network.png}}%
-  \hspace{4em}%
+    {\includegraphics[width=12cm]{figures/nc-network.pdf}}
+  \hspace{4em}
   \subcaptionbox{用户网络中的局部示例\label{fig:user-network}}
-      {\includegraphics[height=7cm]{figures/user-network.png}}
+  	{\includegraphics[width=12cm]{figures/user-network.pdf}}
   \caption{非完全网络与用户网络示例}
   \label{fig:nc-user-network}
 \end{figure}
@@ -55,10 +55,10 @@
 找零地址如果交易t中的一个输出公钥地址pk满足以下所有特征，则可将pk视为“找零地址”。
 
 \begin{enumerate}
-	\item $d_{addr}^{+}（pk) = 1$该地址pk在非完全网络中入度为1，即在区块链账本中首次出现。
+	\item $d_{addr}^{+}	\left(pk \right) = 1$该地址pk在非完全网络中入度为1，即在区块链账本中首次出现。
 	\item 交易t为铸币交易以外的普通交易。铸币交易即生成新区块时发布奖励的交易。
-	\item 不存在$pk^{'}\in  output（t)$且$pk^{'}\in  input（t)$，即不存在“自找零地址”。
-	\item 不存在$pk^{'}\in  output（t)$，$pk^{'} \neq pk$且$d_{addr}^{+}（pk^{'}) = 1$，即pk为输出地址中唯一首次出现的地址。
+	\item 不存在$pk^{'}\in  output \left(t \right)$且$pk^{'}\in  input \left( t \right)$，即不存在“自找零地址”。
+	\item 不存在$pk^{'}\in  output \left( t \right)$，$pk^{'} \neq pk$且$d_{addr}^{+} \left( pk^{'} \right) = 1$，即pk为输出地址中唯一首次出现的地址。
 \end{enumerate}
 
 综上所述，账本隐私内容主要集中于单次交易的内容及隐藏在多个相关交易之后的用户身份、账户余额等隐私信息。这部分信息记录在公开的区块链账本中，攻击者可以通过分析账本挖掘出其中的关联信息，威胁用户的账本隐私。
@@ -72,30 +72,21 @@
   \item[\textbf{通信隐私}] 节点间通信隐私内容，包含节点间通信的数据内容以及通信流量情况。
 \end{description}
 
-2013年，Reid等人尝试利用BitcoinFaucet公开的区块链地址及IP地址对应关系进行分析，揭露比特币用户与实际物理位置的对应关系，该尝试只涉及到很少的节点。Bitnodes网站通过部署大量节点，探测全球范围内的比特币节点信息，其中IP地址分布信息如图\ref{fig:bitcoin-dis}所示（截图于2019年08月01日)。
-
-\begin{figure}
-\centering
-\includegraphics[height=7cm]{figures/bitcoin-dis.png}
-\caption{世界范围内比特币节点分布情况}
-\label{fig:bitcoin-dis}
-\end{figure}
-
-探测攻击严重威胁节点隐私，更进一步，攻击者通过大量探测可以将区块链中广播的数据与实际发起节点关联，尽管区块链网络采用洪水广播的方式保护实际发起人，但是在布置大量探测节点后，攻击者有很大概率找出消息的真实发起节点。2011年，Kaminsky在黑帽大会上提出假设，假设第一次接受到消息时的来源节点即为该消息的真实发起节点。
+2013年，Reid等人尝试利用BitcoinFaucet公开的区块链地址及IP地址对应关系进行分析，揭露比特币用户与实际物理位置的对应关系，该尝试只涉及到很少的节点。Bitnodes网站通过部署大量节点，探测全球范围内的比特币节点信息。探测攻击严重威胁节点隐私，更进一步，攻击者通过大量探测可以将区块链中广播的数据与实际发起节点关联，尽管区块链网络采用洪水广播的方式保护实际发起人，但是在布置大量探测节点后，攻击者有很大概率找出消息的真实发起节点。2011年，Kaminsky在黑帽大会上提出假设，假设第一次接受到消息时的来源节点即为该消息的真实发起节点。
 
 \begin{figure}[ht]
   \centering%
-  \subcaptionbox{模式1 单一转发者\label{fig:trans-pattern1}}
-    {\includegraphics[width=7cm]{figures/trans-pattern1.png}}%
+  \subcaptionbox{模式1 多转发者，无重复转发者\label{fig:trans-pattern1}}
+    {\includegraphics[width=7cm]{figures/trans-pattern1.pdf}}%
   \hspace{2em}%
-  \subcaptionbox{模式2 多转发者，无重复转发者\label{fig:trans-pattern2}}
-  	{\includegraphics[width=7cm]{figures/trans-pattern2.png}}
+  \subcaptionbox{模式2 单一转发者\label{fig:trans-pattern2}}
+  	{\includegraphics[width=7cm]{figures/trans-pattern2.pdf}}
 
   \subcaptionbox{模式3A 多转发者，单一重复转发者\label{fig:trans-pattern3}}
-    {\includegraphics[width=7cm]{figures/trans-pattern3.png}}%
+    {\includegraphics[width=7cm]{figures/trans-pattern3.pdf}}%
   \hspace{2em}%
   \subcaptionbox{模式3B 多转发者，多重复转发者\label{fig:trans-pattern4}}
-  	{\includegraphics[width=7cm]{figures/trans-pattern4.png}}
+  	{\includegraphics[width=7cm]{figures/trans-pattern4.pdf}}
   \caption{区块链网络中三种消息传播模式传播节点随时间的变化}
   \label{fig:trans3}
 \end{figure}
@@ -103,8 +94,8 @@
 2014年，Koshy等人在Kaminsky所提出假设的基础上进行了完善，归纳一段时间内监听到的消息传播情况，提出了区块链网络中消息传播的四种模式（如图\ref{fig:trans3}所示)以及对应的真实发起者假设。这一攻击方式通过监听消息传播模式，分析真实发起节点，将IP地址与消息中包含的链上地址对应，威胁通信隐私与用户身份隐私。
 
 \begin{description}
-  \item[\textbf{模式1 单一转发者}] 该模式中消息只有一个节点重复发送。在广播协议中这种情况并不常见，通常出现原因在于该节点发送不合法消息，其他节点拒绝转发该消息。因此可以假设该节点为消息实际发送者。
-  \item[\textbf{模式2 多转发者，无重复转发者}] 该模式中有多个节点参与消息的转发，每个节点只发送一次。这种模式是网络中最常见的消息传播模式，在Koshy等人收集的数据中占据91。4\%。该模式中假设第一次接受到的消息发起者为消息的真实发起者。
+  \item[\textbf{模式1 多转发者，无重复转发者}] 该模式中有多个节点参与消息的转发，每个节点只发送一次。这种模式是网络中最常见的消息传播模式，在Koshy等人收集的数据中占据91。4\%。该模式中假设第一次接受到的消息发起者为消息的真实发起者。
+  \item[\textbf{模式2 单一转发者}] 该模式中消息只有一个节点重复发送。在广播协议中这种情况并不常见，通常出现原因在于该节点发送不合法消息，其他节点拒绝转发该消息。因此可以假设该节点为消息实际发送者。
   \item[\textbf{模式3A 多转发者，单一重复转发者}] 该模式中有多个节点参与消息的转发，除了一个节点重复多次外，其他节点只发送一次。该模式中，假设唯一的重复转发者为消息的真实发起者。
   \item[\textbf{模式3B 多转发者，多重复转发者}] 该模式中有多个节点参与消息的转发，多个节点重复发送，该模式中难以推断实际发起节点，并且所占比例较小，为2。8\%，因此Koshy等人放弃了这部分数据。
 \end{description}
@@ -152,7 +143,7 @@
 
 \begin{figure}
 \centering
-\includegraphics[height=7cm]{figures/cen-mixer.png}
+\includegraphics[width=14cm]{figures/cen-mixer.pdf}
 \caption{中心化混币模型}
 \label{fig:cen-mixer}
 \end{figure}
@@ -189,9 +180,9 @@
 	
 利用数字签名技术提供不可伪造和不可抵赖的特性，增加承诺机制帮助用户证明平台的窃取行为。服务提供商通过维护自己的“虚拟声誉”，即代表身份的长期有效公钥，使得用户信任该服务商。使用该公钥对应私钥的签名向用户承诺平台不会出现盗窃行为，否则用户可以通过公开该承诺以及不符合承诺的区块链账本记录向其他用户证明该平台存在盗窃行为，破坏服务商的声誉。承诺机制一方面依靠在一定程度上保障了用户资产安全，另一方面也避免了用户恶意造谣。
 
-\begin{figure}
+\begin{figure}[H]
 \centering
-\includegraphics[width=10cm]{figures/mixcoin-blindcoin.png}
+\includegraphics[width=12cm]{figures/mixcoin-blindcoin.pdf}
 \caption{Mixcoin协议和Blindcoin协议}
 \label{fig:mixcoin-blindcoin}
 \end{figure}
@@ -209,7 +200,7 @@ Mixcoin协议通过承诺机制在一定程度上保护了用户的资产安全�
 
 \begin{figure}
 \centering
-\includegraphics[width=10cm]{figures/blind-sig.png}
+\includegraphics[width=10cm]{figures/blind-sig.pdf}
 \caption{盲签名流程}
 \label{fig:blind-sig}
 \end{figure}
@@ -231,7 +222,7 @@ Mixcoin协议通过承诺机制在一定程度上保护了用户的资产安全�
  
 \begin{figure}
 \centering
-\includegraphics[width=10cm]{figures/decen-mixer.png}
+\includegraphics[width=10cm]{figures/decen-mixer.pdf}
 \caption{去中心化混币模型}
 \label{fig:decen-mixer}
 \end{figure}
@@ -252,7 +243,7 @@ Mixcoin协议通过承诺机制在一定程度上保护了用户的资产安全�
 
 \begin{figure}
 \centering
-\includegraphics[width=10cm]{figures/coinjoin-shuffle.png}
+\includegraphics[width=14cm]{figures/coinjoin-shuffle.pdf}
 \caption{CoinJoin协议和CoinShuffle协议}
 \label{fig:coinjoin-shuffle}
 \end{figure}
@@ -265,7 +256,7 @@ Mixcoin协议通过承诺机制在一定程度上保护了用户的资产安全�
 
 \begin{figure}
 \centering
-\includegraphics[width=10cm]{figures/coinparty.png}
+\includegraphics[width=10cm]{figures/coinparty.pdf}
 \caption{CoinParty协议}
 \label{fig:coinparty}
 \end{figure}
@@ -282,7 +273,7 @@ CoinParty协议的安全性保证在攻击者数量小于总参与者数量1⁄3
  
 \begin{figure}
 \centering
-\includegraphics[width=10cm]{figures/coinswap.png}
+\includegraphics[width=15cm]{figures/coinswap.pdf}
 \caption{CoinSwap协议}
 \label{fig:coinswap}
 \end{figure}
@@ -335,7 +326,7 @@ Xim方案在协商阶段采用登记广告的方式构建同伴发现算法(见�
  
 \begin{figure}
 \centering
-\includegraphics[width=10cm]{figures/zerocoin.png}
+\includegraphics[width=15cm]{figures/zerocoin.pdf}
 \caption{ZeroCoin账本示意图}
 \label{fig:zerocoin}
 \end{figure}
@@ -357,7 +348,7 @@ Xim方案在协商阶段采用登记广告的方式构建同伴发现算法(见�
 
 \begin{figure}
 \centering
-\includegraphics[width=10cm]{figures/zerocash.png}
+\includegraphics[width=14cm]{figures/zerocash.pdf}
 \caption{ZeroCash协议中铸币交易的构造过程}
 \label{fig:zerocash}
 \end{figure}
@@ -392,10 +383,10 @@ ZeroCash 协议可以隐藏更多的交易信息包括交易金额和接收方�
 \begin{figure}[ht]
   \centering%
   \subcaptionbox{发起者生成一次性公钥，发起交易\label{fig:one-time-gen}}
-    {\includegraphics[width=7cm]{figures/one-time-gen.png}}%
+    {\includegraphics[width=14cm]{figures/one-time-gen.pdf}}%
   \hspace{4em}%
   \subcaptionbox{接受者生成一次性私钥，检查交易\label{fig:one-time-verify}}
-  	{\includegraphics[width=7cm]{figures/one-time-verify.png}}
+  	{\includegraphics[width=14cm]{figures/one-time-verify.pdf}}
 \caption{使用一次性公私钥对交易流程}
 \label{fig:one-time-key}
 \end{figure}
@@ -424,7 +415,7 @@ CryptoNote协议在交易中采用一次性公私钥对保护了接收方的隐�
 
 \begin{figure}
 \centering
-\includegraphics[width=10cm]{figures/tor.png}
+\includegraphics[width=13cm]{figures/tor.pdf}
 \caption{Tor网络示例}
 \label{fig:tor}
 \end{figure}
@@ -447,7 +438,7 @@ CryptoNote协议在交易中采用一次性公私钥对保护了接收方的隐�
 
 \begin{figure}
 \centering
-\includegraphics[width=10cm]{figures/i2p.png}
+\includegraphics[width=14cm]{figures/i2p.pdf}
 \caption{I2P网络中的隧道}
 \label{fig:i2p}
 \end{figure}
@@ -475,7 +466,7 @@ I2P网络中，用户通过传递可变隧道建立(VTB，Variable Tunnel Build)
 
 \begin{figure}
 \centering
-\includegraphics[width=10cm]{figures/lightning-network.png}
+\includegraphics[width=15cm]{figures/lightning-network.pdf}
 \caption{序列到期可撤销合约的通道创建和状态更新}
 \label{fig:lightning-network}
 \end{figure}
@@ -491,7 +482,7 @@ I2P网络中，用户通过传递可变隧道建立(VTB，Variable Tunnel Build)
 
 \begin{figure}
 \centering
-\includegraphics[width=10cm]{figures/hash-time-lock.png}
+\includegraphics[width=14cm]{figures/hash-time-lock.pdf}
 \caption{哈希时间锁合约的工作流程}
 \label{fig:hash-time-lock}
 \end{figure}
@@ -507,7 +498,7 @@ I2P网络中，用户通过传递可变隧道建立(VTB，Variable Tunnel Build)
 
 \begin{figure}
 \centering
-\includegraphics[width=10cm]{figures/raiden-channel.png}
+\includegraphics[width=15cm]{figures/raiden-channel.pdf}
 \caption{雷电网络技术的支付通道示例}
 \label{fig:raiden-channel}
 \end{figure}
@@ -532,7 +523,7 @@ I2P网络中，用户通过传递可变隧道建立(VTB，Variable Tunnel Build)
 
 \begin{figure}
 \centering
-\includegraphics[width=10cm]{figures/hyper-channel.png}
+\includegraphics[width=13cm]{figures/hyper-channel.pdf}
 \caption{超级账本通道机制}
 \label{fig:hyper-channel}
 \end{figure}
